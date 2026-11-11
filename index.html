@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>AI 推歌评估</title>
+  <style>
+    :root{--ink:#172345;--body:#242933;--muted:#858b98;--stroke:#e7e9ed;--bg:#f7f8fa;--white:#fff;--blue:#2967e8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--body);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px}button,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.35}.wrap{max-width:1030px;margin:28px auto 70px;padding:0 18px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.topbar h1{font-size:24px;margin:0 0 4px;letter-spacing:-.6px;color:var(--ink)}.sub{color:var(--muted);font-size:12px}.round-nav{display:flex;gap:8px;align-items:center;white-space:nowrap}.button{border:1px solid #e2e5eb;background:#fff;color:#273143;border-radius:9px;padding:9px 15px;font-weight:600}.button:hover:not(:disabled){background:#f2f6fc}.button.primary{background:#172345;color:#fff;border-color:#172345}.button.primary:hover{background:#273d71}.count{font-size:12px;color:#677083;background:#fff;border:1px solid #e7e9ed;border-radius:8px;padding:10px}.card{background:#fff;border:1px solid var(--stroke);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 2px 12px #18284d05}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.section-head h2{margin:0;font-size:17px;color:#20293d}.tag-row{display:flex;gap:8px;flex-wrap:wrap}.tag{background:#f6f7f9;border:1px solid #e9ebee;border-radius:8px;padding:8px 11px;font-size:12px;color:#69707e}.tag strong{margin-left:7px;color:#293344;font-weight:650}.preview{width:min(100%,700px);margin:4px auto 22px;background:#f0f0f1;padding:32px 28px 24px;border-radius:14px;color:#16244d}.info{font-size:clamp(29px,4.5vw,46px);font-weight:800;line-height:1.35;letter-spacing:-1.6px;white-space:pre-line}.capsule{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:12px;overflow:hidden;border-radius:999px;min-height:108px;margin-top:32px;padding:16px 18px 16px 32px;background:linear-gradient(110deg,var(--light) 0%,var(--deep) 44%,var(--light) 100%)}.capsule svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.55}.capsule-pill{display:inline-block;font-size:11px;background:#ffffff80;border-radius:999px;padding:3px 9px;margin-bottom:7px}.playlist-title{font-size:25px;font-weight:800;letter-spacing:-.4px;line-height:1.25}.album-art{width:77px;height:77px;flex-shrink:0;border-radius:50%;background:linear-gradient(145deg,var(--deep),var(--light));border:4px solid #fff7;display:flex;align-items:center;justify-content:center;font-size:28px;color:#21436b}.palette-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.palette-header b{font-size:14px}.palette-meta{display:flex;gap:7px;align-items:center;font-size:12px;color:#6b7280}.dot{width:15px;height:15px;border:1px solid #0000000f;display:inline-block;border-radius:4px}.palette-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.palette-choice{min-width:0;background:#fff;border:1px solid #e4e7eb;border-radius:10px;text-align:left;padding:7px}.palette-choice.active{outline:2px solid #3876ed;outline-offset:1px}.swatch{height:31px;border-radius:6px;margin-bottom:5px}.palette-choice strong{font-size:11px}.palette-choice small{font-size:10px;display:block;color:#8b919b;margin-top:3px}.hint{font-size:11px;color:#8a9099;margin-top:10px}.rule{border:0;border-top:1px solid #eceef1;margin:20px 0}.song-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 25px}.song{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eef0f2;min-width:0}.song-num{color:#8e959f;font-size:11px;width:17px;flex:none}.song-cover{width:38px;height:38px;flex:none;border-radius:8px;background:linear-gradient(140deg,#e1efff,#8eb9e8);color:#5682b3;display:grid;place-items:center}.song-name{font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.song-artist{color:#9096a0;font-size:11px;margin-top:3px}.song-content{min-width:0}.score-table{width:100%}.score-row{display:grid;grid-template-columns:minmax(150px,2.2fr) minmax(110px,1fr) minmax(110px,1fr);align-items:center;gap:15px;padding:12px 2px;border-bottom:1px solid #eceef1}.score-row.header{font-size:12px;font-weight:700;color:#707782}.score-row.hide-model{grid-template-columns:minmax(150px,2.2fr) minmax(110px,1fr)}.score-row:last-child{border-bottom:0}.label{font-size:13px;font-weight:600}.weight{font-size:12px;color:#999faa;margin-top:2px}.score-row select{border:1px solid #dadddf;border-radius:8px;padding:10px 8px;background:#fff;color:#202736;width:100%}.model-col{font-variant-numeric:tabular-nums;font-size:13px;font-weight:650}.score-row.hide-model .model-col{display:none}.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:19px 0}.stat{padding:15px;background:#f7f8fa;border:1px solid #ebedf0;border-radius:10px}.stat .number{font-size:28px;font-weight:750;letter-spacing:-1px;margin-top:4px}.stat .number small{font-size:12px;color:#8c929c;font-weight:400;letter-spacing:0}.notes-label{font-weight:650;display:block;margin:18px 0 8px}.notes{width:100%;min-height:95px;border:1px solid #dfe2e6;background:#fff;border-radius:10px;padding:12px;resize:vertical;line-height:1.65}.footer{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:17px;flex-wrap:wrap}.status{font-size:12px;color:#888f9c}.success{display:none;padding:11px 14px;margin-top:14px;border:1px solid #afd9c7;background:#f0faf4;border-radius:9px;color:#247451}.hidden{display:none!important}@media(max-width:680px){.wrap{padding:0 12px;margin:16px auto}.card{padding:15px}.topbar{align-items:flex-start;flex-direction:column}.preview{padding:25px 18px}.capsule{padding-left:18px;min-height:100px}.playlist-title{font-size:20px}.album-art{height:66px;width:66px}.palette-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.song-grid{grid-template-columns:1fr}.score-row{grid-template-columns:minmax(125px,1.6fr) minmax(82px,1fr) minmax(82px,1fr);gap:7px}.score-row.hide-model{grid-template-columns:minmax(125px,1.6fr) minmax(82px,1fr)}.stats{gap:8px}.stat .number{font-size:22px}}
+    @media(max-width:380px){.score-row{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.65fr)}.score-row.hide-model{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div><h1>AI 推歌评估</h1><div class="sub">场景化音乐推荐 · Human Evaluation</div></div>
+    <div class="round-nav"><button class="button" id="prev">← 上一轮</button><span class="count" id="round-label">1 / 3</span><button class="button" id="next">下一轮 →</button></div>
+  </div>
+  <main>
+    <section class="card">
+      <div class="section-head"><h2>当前场景</h2><span class="sub" id="case-id">Case ID · 3809302822</span></div>
+      <div class="tag-row"><span class="tag">场景<strong>高温上车</strong></span><span class="tag">氛围<strong>清爽 / 降温</strong></span><span class="tag">季节<strong>夏季</strong></span><span class="tag">节日<strong>无</strong></span><span class="tag">日期<strong>工作日</strong></span><span class="tag">时间<strong>15:10 · 下午</strong></span><span class="tag">目的地<strong>游乐园</strong></span></div>
+    </section>
+    <section class="card">
+      <div class="section-head"><h2>推荐结果</h2><span class="sub">AI Info + Playlist</span></div>
+      <div class="preview"><div class="info" id="info">暑气正在满格\n清凉一路相伴🧊</div><div class="capsule" id="capsule" style="--light:rgb(158,232,250);--deep:rgb(51,173,204)"><svg viewBox="0 0 600 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C48 -24 77 128 130 67 S198 -12 252 68 S330 105 382 36 S459 -5 491 70 S561 117 600 29 L600 110 L0 110Z" fill="var(--deep)"/></svg><div><span class="capsule-pill">Lumo 推荐</span><div class="playlist-title" id="title">清凉满格</div></div><div class="album-art">♫</div></div></div>
+      <div class="palette-header"><b>HMI 色板</b><div class="palette-meta"><span id="palette-label">C07 · 寒冷</span><span id="light-dot" class="dot" style="background:rgb(158,232,250)"></span><span id="deep-dot" class="dot" style="background:rgb(51,173,204)"></span></div></div>
+      <div class="palette-grid" id="palette-grid"></div><p class="hint">原始输出色板：C07。点击色板可预览不同配色，不影响原始评测数据。</p>
+      <hr class="rule"/><div class="palette-header"><b>歌曲列表</b><span class="sub">12 首歌曲</span></div><div class="song-grid" id="songs"></div>
+    </section>
+    <section class="card">
+      <div class="section-head"><div><h2>人工评估</h2><span class="sub">依据 Rubric 对推荐质量进行 1～5 分评价</span></div><button class="button" id="toggle-model">显示模型评分</button></div>
+      <div class="score-table"><div class="score-row header hide-model" id="score-header"><span>评分维度</span><span>人工评分</span><span class="model-col">模型评分</span></div><div id="score-body"></div></div>
+      <div class="stats"><div class="stat"><div class="sub">人工加权总分</div><div class="number" id="human-score">3.70 <small>/ 5</small></div></div><div class="stat"><div class="sub" id="second-label">已评分维度</div><div class="number" id="second-score">5 / 5</div></div></div>
+      <label class="notes-label" for="notes">人工评分理由</label><textarea class="notes" id="notes" placeholder="填写推荐质量判断依据和改进建议"></textarea>
+      <div class="success" id="success">评分已确认，可切换其他轮次继续评估。</div>
+      <div class="footer"><span class="status" id="status">当前轮次尚未确认</span><div style="display:flex;gap:8px"><button class="button" id="copy">复制评分记录</button><button class="button primary" id="confirm">确认评分</button></div></div>
+    </section>
+  </main>
+</div>
+<script>
+  const colors=[
+    {id:'C01',name:'开心-黄',a:[255,230,103],b:[173,150,31]},
+    {id:'C02',name:'放松-绿',a:[193,245,137],b:[117,178,52]},
+    {id:'C03',name:'浪漫-粉',a:[251,186,232],b:[210,75,170]},
+    {id:'C04',name:'温暖-橙红',a:[255,188,153],b:[217,99,38]},
+    {id:'C05',name:'蓝调-蓝紫',a:[178,199,255],b:[60,103,221]},
+    {id:'C06',name:'天空',a:[178,226,255],b:[60,158,221]},
+    {id:'C07',name:'寒冷',a:[158,232,250],b:[51,173,204]}
+  ];
+  const songList=[
+    {song_id:106816422,song_name:'Summer Vibe',singer_name:'Pegato'},
+    {song_id:107939882,song_name:'China-X',singer_name:'徐梦圆'},
+    {song_id:721289779,song_name:'I want it,I got it（我想要我得到）',singer_name:'赵希予'},
+    {song_id:214117443,song_name:'自由幻想',singer_name:'张碧晨'},
+    {song_id:639141,song_name:'Love Story',singer_name:'Taylor Swift'},
+    {song_id:104129385,song_name:'Spectre',singer_name:'Alan Walker'},
+    {song_id:107762070,song_name:'小半',singer_name:'陈粒'},
+    {song_id:105582724,song_name:'Trip',singer_name:'Axero'},
+    {song_id:389979699,song_name:'去有风的地方',singer_name:'郁可唯'},
+    {song_id:102681429,song_name:'Day Drinking',singer_name:'Little Big Town'},
+    {song_id:518588707,song_name:'远山少年',singer_name:'窝窝'},
+    {song_id:459143849,song_name:'两棵树',singer_name:'GooGoo'}
+  ];
+  const rubric=[['场景匹配度',30],['用户偏好匹配',25],['歌曲质量与多样性',20],['歌单整体连贯性',15],['AI 文案与 HMI 表达',10]];
+  // 轮次 2、3 为界面交互占位数据，正式使用时替换为真实评测结果。
+  const rounds=[
+    {id:'3809302822',info:'暑气正在满格\n清凉一路相伴🧊',title:'清凉满格',songs:songList,model:[4,3,4,4,5]},
+    {id:'3809302822-R02',info:'阳光正好出发\n让清风来领路🍃',title:'夏日轻行',songs:[...songList.slice(4),...songList.slice(0,4)],model:[4,4,3,4,4]},
+    {id:'3809302822-R03',info:'热浪留在窗外\n快乐一路同行☀️',title:'晴朗出发',songs:[...songList.slice(8),...songList.slice(0,8)],model:[5,3,4,3,4]}
+  ];
+  const records=rounds.map((r,i)=>({ratings:i===0?[3,4,4,3,5]:[null,null,null,null,null],notes:i===0?'部分歌曲与高温上车的清爽氛围关联较弱，建议核查歌曲情绪与曲风标签。':'',confirmed:false}));
+  let current=0,selectedColor='C07',showModel=false;
+  const $=id=>document.getElementById(id),rgb=a=>'rgb('+a.join(',')+')';
+  const paletteGrid=$('palette-grid');
+  paletteGrid.innerHTML=colors.map(c=>`<button class="palette-choice ${c.id==='C07'?'active':''}" data-color="${c.id}" type="button"><div class="swatch" style="background:linear-gradient(90deg,${rgb(c.a)} 50%,${rgb(c.b)} 50%)"></div><strong>${c.id}</strong><small>${c.name}</small></button>`).join('');
+  function updatePalette(){const c=colors.find(x=>x.id===selectedColor);$('capsule').style.setProperty('--light',rgb(c.a));$('capsule').style.setProperty('--deep',rgb(c.b));$('palette-label').textContent=c.id+' · '+c.name;$('light-dot').style.background=rgb(c.a);$('deep-dot').style.background=rgb(c.b);document.querySelectorAll('[data-color]').forEach(b=>b.classList.toggle('active',b.dataset.color===selectedColor));}
+  paletteGrid.addEventListener('click',event=>{const b=event.target.closest('[data-color]');if(!b)return;selectedColor=b.dataset.color;updatePalette();});
+  function weighted(scores){let sum=0,weight=0;scores.forEach((v,i)=>{if(v!==null){sum+=v*rubric[i][1];weight+=rubric[i][1];}});return weight?sum/weight:null;}
+  function renderScores(){$('score-body').innerHTML=rubric.map((d,i)=>`<div class="score-row ${showModel?'':'hide-model'}"><div><div class="label">${d[0]}</div><div class="weight">${d[1]}%</div></div><select data-score="${i}" aria-label="${d[0]}人工评分"><option value="" ${records[current].ratings[i]===null?'selected':''}>未评分</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${records[current].ratings[i]===n?'selected':''}>${n} 分</option>`).join('')}</select><div class="model-col">${rounds[current].model[i]} 分</div></div>`).join('');$('score-header').classList.toggle('hide-model',!showModel);updateMetrics();}
+  function updateMetrics(){const data=records[current],total=weighted(data.ratings);$('human-score').innerHTML=(total===null?'—':total.toFixed(2))+' <small>/ 5</small>';$('second-label').textContent=showModel?'模型加权总分':'已评分维度';$('second-score').textContent=showModel?weighted(rounds[current].model).toFixed(2)+' / 5':data.ratings.filter(x=>x!==null).length+' / 5';$('success').style.display=data.confirmed?'block':'none';$('status').textContent=data.confirmed?'本轮评分已确认':'当前轮次尚未确认';$('confirm').textContent=data.confirmed?'重新确认':'确认评分';$('toggle-model').textContent=showModel?'隐藏模型评分':'显示模型评分';}
+  function renderRound(){const round=rounds[current];$('round-label').textContent=(current+1)+' / '+rounds.length;$('prev').disabled=current===0;$('next').disabled=current===rounds.length-1;$('case-id').textContent='Case ID · '+round.id;$('info').textContent=round.info;$('title').textContent=round.title;$('songs').innerHTML=round.songs.map((s,i)=>`<div class="song"><span class="song-num">${i+1}.</span><div class="song-cover">♫</div><div class="song-content"><div class="song-name" title="${s.song_name}">${s.song_name}</div><div class="song-artist">${s.singer_name}</div></div></div>`).join('');$('notes').value=records[current].notes;selectedColor='C07';updatePalette();renderScores();}
+  $('score-body').addEventListener('change',e=>{const select=e.target.closest('[data-score]');if(!select)return;records[current].ratings[Number(select.dataset.score)]=select.value===''?null:Number(select.value);records[current].confirmed=false;updateMetrics();});
+  $('notes').addEventListener('input',e=>{records[current].notes=e.target.value;records[current].confirmed=false;updateMetrics();});
+  $('toggle-model').addEventListener('click',()=>{showModel=!showModel;renderScores();});
+  $('prev').addEventListener('click',()=>{if(current>0){current--;renderRound();}});$('next').addEventListener('click',()=>{if(current<rounds.length-1){current++;renderRound();}});
+  $('confirm').addEventListener('click',()=>{if(records[current].ratings.some(x=>x===null)){$('status').textContent='请完成全部评分后再确认';return;}records[current].confirmed=true;updateMetrics();});
+  $('copy').addEventListener('click',async()=>{const round=rounds[current],data=records[current];const record={case_id:round.id,scene:'高温上车',atmosphere:['清爽','降温'],time_context:{season:'夏季',festival:'无',weekday:'工作日',clock_time:'15:10',time_bucket:'afternoon'},destination_poi_type:'游乐园',info:round.info,title:round.title,color_id:'C07',ratings:rubric.map((d,i)=>({dimension:d[0],weight:d[1],human_score:data.ratings[i],model_score:round.model[i]})),weighted_score:weighted(data.ratings),review_note:data.notes,confirmed:data.confirmed};try{await navigator.clipboard.writeText(JSON.stringify(record,null,2));$('copy').textContent='已复制';setTimeout(()=>$('copy').textContent='复制评分记录',1600);}catch(e){$('status').textContent='复制失败，请检查浏览器剪贴板权限';}});
+  renderRound();
+</script>
+</body>
+</html>
